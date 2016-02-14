@@ -1,0 +1,92 @@
+/** {*/
+    /*margin: 0;*/
+    /*box-sizing: border-box;!*added this for the RWD*!*/
+/*}*/
+
+/*html, body {*/
+    /*background-color: grey;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+/*}*/
+/*.page-wrap {*/
+    /*min-height: 100%;*/
+    /*!* equal to footer height *!*/
+    /*margin-bottom: -80px;*/
+/*}*/
+/*.page-wrap:after {*/
+    /*content: "";*/
+    /*display: block;*/
+/*}*/
+/*.site-footer, .page-wrap:after {*/
+    /*height: 80px;*/
+/*}*/
+/*.site-footer {*/
+    /*background: #265a88;*/
+/*}*/
+
+/*header{*/
+    /*background-color: #265a88;*/
+    /*color:white;*/
+    /*text-align:center;*/
+    /*padding:5px;*/
+/*}*/
+/*h1{*/
+    /*position: relative;*/
+    /*right:170px;*/
+    /*display:inline-block;*/
+    /*text-align: center;*/
+/*}*/
+
+
+/*.logo{*/
+    /*display:inline-block;*/
+    /*float:left;*/
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
+    /*border-color:black;*/
+/*}*/
+
+/*form{*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
+
+/*footer {*/
+    /*background-color:black;*/
+    /*color:white;*/
+    /*clear:both;*/
+    /*text-align:center;*/
+    /*padding:5px;*/
+/*}*/
+/*ul {*/
+    /*float:left;*/
+    /*display:inline-block;*/
+    /*list-style-type: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*overflow: hidden;*/
+    /*width: 300px;*/
+/*}*/
+/*li {*/
+    /*float: left;*/
+/*}*/
+
+/*li a {*/
+    /*display: inline-block;*/
+    /*color: white;*/
+    /*text-align: center;*/
+    /*padding: 20px 12px;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*li a:hover {*/
+    /*background-color: #265a88;*/
+/*}*/
+/*h3{*/
+    /*color:lightgrey;*/
+/*}*/
+
+/*input{*/
+    /*color: black;*/
+/*}*/
+

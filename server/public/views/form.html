@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+
+                    <!--THIS IS THE CONTROLLER FOR THE BOOTSTRAP MODAL SIGN UP FORM-->
+
+<div ng-controller="signupCtrl">
+    <form action="/" method="post">
+        <input type="text" placeholder="First Name" ng-model="firstname" required><br>
+        <input type="text" placeholder="Last Name" ng-model="lastname" required><br>
+        <input type="text" placeholder="Username" ng-model="username" required><br>
+        <input type="password" placeholder="password" ng-model="password" required><br>
+        <input type="email" placeholder="Email" ng-model="email">
+        <input type="submit">
+        <button ng-click="signupSubmit()">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Gadget</title>
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/login.css" rel="stylesheet">
+    <link href="assets/styles/mainpage.css" rel="stylesheet">
+    <link href="assets/styles/createplayer.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-route/angular-route.min.js"></script>
+    <script src="assets/scripts/client.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <base href="/">
+</head>
+<body ng-controller="MainController">
+<div class="page-wrap">
+
+
+<header>
+    <img class="logo" src="./assets/images/BaseballGadget.jpg" height="60" width="60">
+    <h1>Baseball Gadget</h1>
+                                        <!--THIS IS THE NAV BAR-->
+    <ul>
+        <!--<li><a class="active" href="#home">Home</a></li>-->
+        <li><a href="#" data-toggle="modal" data-target="#myModal">Sign up</a></li><!-- Trigger the modal with a button -->
+        <!--<li><a href="#login">Login</a></li> Don't need this at all-->
+        <!--<li><a href="#about">Contact</a></li> Don't really need this-->
+    </ul>
+                                            <!-- MODAL TRIGGER -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+                                            <!-- MODAL CONTENT-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                    <h3>Sign up to get started</h3>
+                </div>
+                <div class="modal-body">
+                    <div ng-controller="signupCtrl">
+                        <form>
+                            <input type="text" placeholder="First Name" ng-model="firstname" required><br>
+                            <br>
+                            <input type="text" placeholder="Last Name" ng-model="lastname" required><br>
+                            <br>
+                            <input type="text" placeholder="Username" ng-model="username" required><br>
+                            <br>
+                            <input type="password" placeholder="password" ng-model="password" required><br>
+                            <br>
+                            <input type="email" placeholder="Email" ng-model="email">
+                            <br>
+                            <button ng-click="signupSubmit()" data-dismiss="modal">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!--I'M PUTTING THIS HERE TO TEST OUT THE NG-SHOW CASE-->
+    <div id="content"><!--class ="ng-scope"-->
+        <div ng-show="showLogIn">
+            <form>
+                <div class="loginput">
+                    <input type="text" placeholder="Username" ng-model="username" id="username" required><br>
+                    <input type="password" placeholder="Password" ng-model="password" id="password" required>
+                    <button ng-click="loginSubmit()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <!--I'M ADDING THE HIDDEN MAINPAGE USING [NG-SHOW="SHOWMAINPAGE"]-->
+    <div ng-show="showMainPage">
+        <div class="container-fluid-MP"> <!--TOOK OUT  ng-controller="MainController" TO TEST OUT NG-SHOW CASE-->
+            <div class="row">
+
+
+                <!--[][][][][][][][][][][][][]]LEFT SIDE PITCHER LEFT OR RIGHT[][][][][][][][][][][][][][][][][-->
+                <div class="col-md-3 left">
+                    <div class="pitcherstyle"><h2 class="pitcher">Pitcher</h2>
+                        <form ng-model="pitcher">
+                            <input type="button" value="Lefty" name="throws" class="leftybtn">
+                            <input type="button" value="Righty" name="throws" class="rightybtn">
+                        </form>
+                    </div>
+                    <!--[][][][][][][][][][][][][]]LEFT SIDE PITCHER TYPES[][][][][][][][][][][][][][][][][][][][]][-->
+                    <div class="pitchstyle"><h2 class="pitchheader">Pitch Types</h2>
+                        <form ng-model="pitchtypes">
+                            <div class="pitchbtns">
+                                <input type="button" value="Fastball" name="pitchtype" class="fastball" ng-click="red('red')"><br/>
+                                <input type="button" value="Changeup" name="pitchtype" class="changeup" ng-click="changeColor('blue')"><br/>
+                                <input type="button" value="Curveball" name="pitchtype" class="curveball" ng-click="changeColor(green)"><br/>
+                                <input type="button" value="Slider" name="pitchtype" class="slider" ng-click="changeColor(yellow)"><br/>
+                                <input type="button" value="Slurve" name="pitchtype" class="slurve" ng-click="changeColor(orange)"><br/>
+                                <input type="button" value="Cutter" name="pitchtype" class="cutter" ng-click="changeColor(purple)"><br/>
+                                <input type="button" value="Sinker" name="pitchtype" class="sinker" ng-click="changeColor(pink)"><br/>
+                            </div>
+                        </form>
+                    </div>
+                    <!--[][][][][][][][][][][][][]]LEFT SIDE PITCH RESULT[][][][][][][][][][][][][][][][][][][][]][-->
+                    <div class="resultstyle"><h2 class="pitchresult">Pitch Result</h2>
+                        <form ng-model="pitchresult">
+                            <div class="resultbtns">
+                                <input type="button" value="Ball" name="pitchresult" class="ball" ng-click="pitchResult('B')">
+
+                                <input type="button" value="Strike" name="pitchresult" class="strike" ng-click="pitchResult('S')">
+                                <input type="button" value="Foul" name="pitchresult" class="foul" ng-click="pitchResult('F')">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--[][][][][][][][][][][][][]]LEFT SIDE END'S HERE[][][][][][][][][][][][][][][][][][][][]][-->
+
+                <div class="col-md-6 partials">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="gametime">Game Time</a></li>
+                            <li><a href="createplayer">Create Player</a></li>
+                            <li><a href="stats">Stats</a></li>
+                        </ul>
+                        <div ng-view></div>
+                </div>
+
+
+
+
+                <!--[][][][][][][][][][][][][]]RIGHT SIDE 'BATTER' STARTS HERE[][][][][][][][][][][][][][][][][-->
+                <div class="col-md-3 right">
+                    <div class="batterstyle"><h2 class="batter">Batter</h2>
+                        <select ng-model="batter">
+                            <option value="____Input batter here____"></option><!--This needs a way to input batters from the database-->
+                            <option value="batter1">Batter 1</option>
+                            <option value="batter2">Batter 2</option>
+                            <option value="batter3">Batter 3</option>
+                            <option value="batter4">Batter 4</option>
+                        </select>
+                    </div>
+                    <!--[][][][][][][][][][][][][]]RIGHT SIDE HIT[][][][][][][][][][][][][][][][][][][][]][-->
+                    <div class="ABstyle"><h2 class="abheader">AB Result:</h2><br>
+                        <h2 class="hitheader">Hit</h2>
+                        <form ng-model="ABresult">
+                            <div class="hitbtns">
+                                <input type="button" value="H" name="ABresult">
+                                <input type="button" value="2B" name="ABresult" >
+                                <input type="button" value="3B" name="ABresult">
+                                <input type="button" value="HR" name="ABresult">
+                                <input type="button" value="BB" name="ABresult">
+                                <input type="button" value="SF" name="ABresult">
+                            </div>
+                        </form>
+                    </div>
+                    <!--[][][][][][][][][][][][][]]RIGHT SIDE AB RESULT[][][][][][][][][][][][][][][][][][][][]][-->
+                    <div class="ABresultstyle"><h2 class="outheader">Out</h2>
+                        <form ng-model="ABout">
+                            <div class="outbtns">
+                                <input type="button" value="P.F." name="Outresult">
+                                <input type="button" value="L.D." name="Outresult">
+                                <input type="button" value="G.B." name="Outresult">
+                                <input type="button" value="K" name="Outresult">
+                                <input type="button" value="(k)" name="Outresult">
+                            </div>
+                        </form>
+                    </div>
+                    <!--[][][][][][][][][][][][][][][][][][]]RIGHT SIDE END'S HERE[][][][][][][][][][][][][][][][][][]][][][][][][][][][]-->
+                </div>
+            </div>
+            <!--<footer class="site-footer">I'm the Sticky Footer.</footer>-->
+        </div>
+    </div>
+                                    <!--THIS IS THE END OF THE MAINPAGE SECTION-->
+
+
+
+    <!--<div ng-view></div>-->
+
+</div>
+
+<footer class="site-footer">I'm the Sticky Footer.</footer>
+
+
+
+
+</body>
+</html>

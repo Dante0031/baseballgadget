@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+}
+html, body {
+    background-color: grey;
+    height: 100%;
+    width: 100%;
+}
+.page-wrap {
+    min-height: 100%;
+    margin-bottom: -80px;
+}
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+.site-footer, .page-wrap:after {
+    height: 80px;
+}
+.site-footer {
+    background: #265a88;
+}
+
+header{
+    background-color: #265a88;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+form{
+    position: relative;
+    text-align: center;
+}
+
+h1{
+    position: relative;
+    right:170px;
+    display:inline-block;
+    text-align: center;
+}
+
+.logo{
+    display:inline-block;
+    float:left;
+    border-style: solid;
+    border-width: 1px;
+    border-color:black;
+}
+
+ul {
+    float:left;
+    display:inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 300px;
+}
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 20px 12px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #265a88;
+}
+h3{
+    color:lightgrey;
+}
+
+.loginput input{
+    margin:auto;
+    height:auto;
+}
+
+.partials{
+    background-image:url("/assets/images/gen.jpg");
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    width:60.5%;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 602px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.left{
+    text-align: center;
+    background:grey;
+    height:100%;
+    float:left;
+    width:19.5%;
+    padding:0px;
+}
+
+.right{
+
+    text-align: center;
+    background:grey;
+    height:100%;
+    float:right;
+    width:19.5%;
+    padding:0px;
+}
+
+
+.pitcherstyle{
+    width:100%;
+}
+
+.pitcher{
+    font-family: 'Audiowide', cursive;
+    margin:10px;
+}
+
+.leftybtn{
+    width:48%;
+    height:45px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    float:left;
+    margin-right:2px;
+}
+
+.rightybtn{
+    width:48%;
+    height:45px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    float:left;
+    margin-right:2px;
+}
+
+.pitchheader{
+    font-family: 'Audiowide', cursive;
+    margin:10px;
+
+}
+
+ul[class=pitchbtns]{
+    color:black;
+}
+
+.pitchbtns input{
+    width:90%;
+    height:40px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fastball{
+    background-color:red;
+}
+
+.changeup{
+    background-color:blue;
+}
+
+.curveball{
+    background-color:green;
+}
+
+.slider{
+    background-color:yellow;
+}
+
+.slurve{
+    background-color:orange;
+}
+
+.cutter{
+    background-color:purple;
+}
+
+.sinker{
+    background-color:pink;
+}
+
+.pitchresult{
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.resultbtns input{
+    width:30%;
+    display:inline-block;
+    height:40px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.batterstyle{
+    width:100%;
+}
+
+.batter{
+    margin:3px;
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.abheader{
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.hitheader{
+    margin:5px;
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.hitbtns input{
+    width:47%;
+    display:inline-block;
+    height:40px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.outheader{
+    font-family: 'Audiowide', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.outbtns input{
+    width:47%;
+    display:inline-block;
+    height:55px;
+    margin:1%;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 23px;
+}
+
+.throwsleft{
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.throwsright{
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.createP{
+    height:562px;
+}
+
+.playername{
+    margin:0px;
+}
+
+
+#myCanvas {
+    border: 1px solid white;
+    width:inherit;
+    height:inherit;
+    padding:0px;
+    /*margin-left: 12%;*/
+    /*margin-top: 21%;*/
+    left:30.25%;
+    top:29%;
+    position:absolute;
+    margin:auto;
+}
+
+.canvasLeft{
+    border:red;
+}
+.canvasMiddle{
+    border:white;
+    margin:auto;
+}
+.canvasRight{
+    border:blue;
+}
+
+input{
+    color: black;
+}
+h1{
+    font-family: 'Audiowide', cursive;
+    text-shadow: 3px 3px black;
+    color:forestgreen;
+    font-weight:bold;
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
