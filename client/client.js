@@ -51,16 +51,12 @@ app.controller('signupCtrl', ['$scope','$http', '$location', function($scope, $h
         });
     };
 }]);
-//////////////////////////////////THIS IS THE CONTROLLER FOR _____________?/////////////////////////////////////////////
 
-app.controller('MainController',['$scope', '$http','$location','pitchService', function($scope, $http, $location, pitchService){//ADD FACTORY HERE ALSO
+app.controller('MainController',['$scope', '$http','$location','pitchService', function($scope, $http, $location, pitchService){
     $scope.showLogIn = true;
     $scope.showMainPage = false;
-    /////////////////////////////////////////////////////////////TESTING NG-SHOW CASE///////////////////////////////////
     $scope.username = "";
     $scope.password = "";
-    //$scope.showLogIn = true;
-    //$scope.showMainPage = false;
 
     $scope.loginSubmit = function(){
         $http.post('/logIn', {username: $scope.username, password: $scope.password})
@@ -68,38 +64,16 @@ app.controller('MainController',['$scope', '$http','$location','pitchService', f
                 if(response.status ===200){
                     console.log('Did we hit the got response?');
                     $scope.showLogIn = false;
-                    $scope.showMainPage = true;//this SHOULD switch showMainPage from hide to show
-                    //log into the factory here, i.e. NathanFactory.logIn();
-                    $location.path('/mainpage');
+                    $scope.showMainPage = true;
+                    //$location.path('/mainpage');
                 } else {
                     console.log("ERROR");
                 }
             });
     };
-}]);
-/////////////////////////////////////////////////////CONTROLLER FOR SCATTER PLOT////////////////////////////////////////
-
-app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
-
-    ///////////////////////////////////////GLOBAL VARIABLES///////////////////////////////////////////
-    var batter = "";
-
-    var atBat = {
-        pitcher: "",//lefty or righty?
-        hit: "",//was it a hit? what kind?
-        out: "" //was it an out? what kind?
-    };
-    var pitches = {
-        pitch_type: [],//What type of pitch was it?
-        pitch_result: []//Was it a ball, strike, or foul?
-    };
-    var baseball = {};
-    var ballIcon = $scope.pitchResult;
-    var ballColor = $scope.changeColor;
-
-
     $scope.changeColor = function(color){
         ballColor = color;
+        console.log(ballColor);
         return ballColor;
     };
 
@@ -107,6 +81,15 @@ app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, 
         ballIcon = pitch;
         return ballIcon;
     };
+}]);
+
+app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
+
+
+
+    var baseball = {};
+
+
 
     $scope.fireClickEvent = function(evt){
         getBaseballPos(canvas, evt);
@@ -116,26 +99,26 @@ app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, 
     };
 
     var canvas = document.getElementById('myCanvas');
-    var createBaseball = function (canvas, plotX, plotY) {
+    var createBaseball = function (canvas, color, pitch) {
         var context = canvas.getContext('2d');
         if (canvas.getContext) {
             var w = 16;
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.beginPath();
-            context.fillStyle = "blue";
+            context.fillStyle = ballColor;
+            console.log(ballColor);
+            //console.log(changeColor);
             context.arc(baseball.x, baseball.y, w/2, 0, 2*Math.PI);
             context.fill();
 
-
-
             context = canvas.getContext("2d");
-
             context.font = '8pt Calibri';
-            context.fillStyle = 'white';
+            context.fillStyle = 'black';
             context.textAlign = 'center';
-            context.fillText(pitchResult, baseball.x, baseball.y + 4);//"0", should be a variable that will change the Pitch Results
+            context.fillText(ballIcon, baseball.x, baseball.y + 4);//"0", should be a variable that will change the Pitch Results
         }
     };
+
     var getBaseballPos = function (canvas, evt) {
         var rect = canvas.getBoundingClientRect();
         baseball.x = evt.clientX - rect.left;
@@ -145,14 +128,14 @@ app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, 
 
 /////////////////////////////////////////////////////CONTROLLER FOR CREATING PLAYER/////////////////////////////////////
 
-app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
+app.controller('CreatePlayer', ['$scope', '$http', function($scope, $http){
     $scope.player = "";
     $scope.submitPlayer = function(){
         console.log("LOL");
     }
 }]);
 
-app.controller('statsController', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
+app.controller('statsController', ['$scope', '$http', function($scope, $http){
 
 
 }]);
@@ -178,6 +161,7 @@ app.factory('pitchService', ['$http', function($http) {
         });
     };
 
+    var data = {};
 
     return {
         batter: batter,
@@ -185,5 +169,4 @@ app.factory('pitchService', ['$http', function($http) {
         pitches: pitches,
         getPitchInfo: getPitchInfo
     };
-
 }]);

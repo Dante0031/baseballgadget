@@ -93,10 +93,6 @@ h3{
 
 }
 
-.partials #myCanvas{
-    vertical-align: middle;
-}
-
 
 .left{
     text-align: center;
@@ -276,6 +272,7 @@ ul[class=pitchbtns]{
 
 .createP{
     height:562px;
+    color:white;
 }
 
 .playername{
@@ -284,28 +281,19 @@ ul[class=pitchbtns]{
 
 
 #myCanvas {
-    border: 1px solid white;
-    width:inherit;
-    height:inherit;
+    /*border: 1px solid white;*/
     padding:0px;
-    /*margin-left: 12%;*/
-    /*margin-top: 21%;*/
-    left:30.25%;
-    top:29%;
-    position:absolute;
-    margin:auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    display: block;
 }
 
-.canvasLeft{
-    border:red;
+.nav-tabs{
+    display:block;
 }
-.canvasMiddle{
-    border:white;
-    margin:auto;
-}
-.canvasRight{
-    border:blue;
-}
+
+
 
 input{
     color: black;

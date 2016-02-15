@@ -4,9 +4,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baseball Gadget</title>
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/styles/login.css" rel="stylesheet">
     <link href="assets/styles/mainpage.css" rel="stylesheet">
-    <link href="assets/styles/createplayer.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <script src="vendors/angular/angular.min.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
@@ -24,10 +22,7 @@
     <h1>Baseball Gadget</h1>
                                         <!--THIS IS THE NAV BAR-->
     <ul>
-        <!--<li><a class="active" href="#home">Home</a></li>-->
-        <li><a href="#" data-toggle="modal" data-target="#myModal">Sign up</a></li><!-- Trigger the modal with a button -->
-        <!--<li><a href="#login">Login</a></li> Don't need this at all-->
-        <!--<li><a href="#about">Contact</a></li> Don't really need this-->
+        <li><a href="#" data-toggle="modal" data-target="#myModal">Sign up</a></li>
     </ul>
                                             <!-- MODAL TRIGGER -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -64,8 +59,9 @@
     </div>
 
 </header>
-<!--I'M PUTTING THIS HERE TO TEST OUT THE NG-SHOW CASE-->
-    <div id="content"><!--class ="ng-scope"-->
+
+
+    <div id="content">
         <div ng-show="showLogIn">
             <form>
                 <div class="loginput">
@@ -79,10 +75,8 @@
 
 
 
-
-    <!--I'M ADDING THE HIDDEN MAINPAGE USING [NG-SHOW="SHOWMAINPAGE"]-->
     <div ng-show="showMainPage">
-        <div class="container-fluid-MP"> <!--TOOK OUT  ng-controller="MainController" TO TEST OUT NG-SHOW CASE-->
+        <div class="container-fluid-MP">
             <div class="row">
 
 
@@ -98,13 +92,13 @@
                     <div class="pitchstyle"><h2 class="pitchheader">Pitch Types</h2>
                         <form ng-model="pitchtypes">
                             <div class="pitchbtns">
-                                <input type="button" value="Fastball" name="pitchtype" class="fastball" ng-click="red('red')"><br/>
+                                <input type="button" value="Fastball" name="pitchtype" class="fastball" ng-click="changeColor('red')"><br/>
                                 <input type="button" value="Changeup" name="pitchtype" class="changeup" ng-click="changeColor('blue')"><br/>
-                                <input type="button" value="Curveball" name="pitchtype" class="curveball" ng-click="changeColor(green)"><br/>
-                                <input type="button" value="Slider" name="pitchtype" class="slider" ng-click="changeColor(yellow)"><br/>
-                                <input type="button" value="Slurve" name="pitchtype" class="slurve" ng-click="changeColor(orange)"><br/>
-                                <input type="button" value="Cutter" name="pitchtype" class="cutter" ng-click="changeColor(purple)"><br/>
-                                <input type="button" value="Sinker" name="pitchtype" class="sinker" ng-click="changeColor(pink)"><br/>
+                                <input type="button" value="Curveball" name="pitchtype" class="curveball" ng-click="changeColor('green')"><br/>
+                                <input type="button" value="Slider" name="pitchtype" class="slider" ng-click="changeColor('yellow')"><br/>
+                                <input type="button" value="Slurve" name="pitchtype" class="slurve" ng-click="changeColor('orange')"><br/>
+                                <input type="button" value="Cutter" name="pitchtype" class="cutter" ng-click="changeColor('purple')"><br/>
+                                <input type="button" value="Sinker" name="pitchtype" class="sinker" ng-click="changeColor('pink')"><br/>
                             </div>
                         </form>
                     </div>
@@ -113,7 +107,6 @@
                         <form ng-model="pitchresult">
                             <div class="resultbtns">
                                 <input type="button" value="Ball" name="pitchresult" class="ball" ng-click="pitchResult('B')">
-
                                 <input type="button" value="Strike" name="pitchresult" class="strike" ng-click="pitchResult('S')">
                                 <input type="button" value="Foul" name="pitchresult" class="foul" ng-click="pitchResult('F')">
                             </div>
@@ -171,24 +164,12 @@
                             </div>
                         </form>
                     </div>
-                    <!--[][][][][][][][][][][][][][][][][][]]RIGHT SIDE END'S HERE[][][][][][][][][][][][][][][][][][]][][][][][][][][][]-->
+                    <!--[][][][][][][][][][][][][][][][][][]]RIGHT SIDE END'S HERE[][][][][][][][][][][][][]][][][][][][][][][]-->
                 </div>
             </div>
-            <!--<footer class="site-footer">I'm the Sticky Footer.</footer>-->
         </div>
     </div>
-                                    <!--THIS IS THE END OF THE MAINPAGE SECTION-->
-
-
-
-    <!--<div ng-view></div>-->
-
 </div>
-
 <footer class="site-footer">I'm the Sticky Footer.</footer>
-
-
-
-
 </body>
 </html>

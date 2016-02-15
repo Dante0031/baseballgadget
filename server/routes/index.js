@@ -15,8 +15,7 @@ router.get('/', function(request, response){
     response.sendFile(joinedPath);
 });
 
-router.get('/index', function(request, response){//changing '/mainpage' to '/index' to test ngshow case
-    //response.sendFile(path.join(__dirname, '../public/views/mainpage.html'));
+router.get('/index', function(request, response){
     response.sendStatus(200);
 });
 
@@ -29,8 +28,8 @@ router.get('/login', function(request, response){//changing '/fail' to '/login' 
 //});
 //////////////////////////////////////////THIS IS LOGGING IN USER///////////////////////////////////////////////////////
 router.post('/logIn', passport.authenticate('local', {
-    successRedirect: '/index',//switching this from '/mainpage' to '/index'
-    failureRedirect: '/login'//switching this from '/index' to '/login'
+    successRedirect: '/index',
+    failureRedirect: '/login'
 }));
 
 ////////////////////////////END OF PASSPORT/////////////////////////////////////////////////////////////////////////////
