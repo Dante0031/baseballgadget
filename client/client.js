@@ -10,10 +10,6 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl:'views/index.html',
             controller: 'signupCtrl'
         })
-        //.when('/mainpage', {//                        Do i really need this? test NG-SHOW case....apparently not..or not right now
-        //    templateUrl:'views/index.html',
-        //    controller: 'MainPageController'
-        //})
         .when('/gametime', {
             templateUrl:'views/gametime.html',
             controller: 'GameTime'
@@ -33,31 +29,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 }]);
 
 ////////////////////////////////THIS IS THE CONTROLLER FOR THE USER'S LOGIN/////////////////////////////////////////////
-//
-//app.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $location) {
-//
-//    //$scope.username = "";
-//    //$scope.password = "";
-//    ////$scope.showLogIn = true;
-//    ////$scope.showMainPage = false;
-//    //
-//    //$scope.loginSubmit = function(){
-//    //    $http.post('/logIn', {username: $scope.username, password: $scope.password})
-//    //        .then(function(response){
-//    //            if(response.status ===200){
-//    //                console.log('Did we hit the got response?');
-//    //                $scope.showLogIn = false;
-//    //                $scope.showMainPage = true;//this SHOULD switch showMainPage from hide to show
-//    //                //log into the factory here, i.e. NathanFactory.logIn();
-//    //                $location.path('/mainpage');
-//    //            } else {
-//    //               console.log("ERROR");
-//    //            }
-//    //        });
-//    //};
-//}]);
 
-/////////////////////////////////THIS IS THE CONTROLLER FOR THE USER'S SIGN UP//////////////////////////////////////////
 
 app.controller('signupCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
 
@@ -81,7 +53,7 @@ app.controller('signupCtrl', ['$scope','$http', '$location', function($scope, $h
 }]);
 //////////////////////////////////THIS IS THE CONTROLLER FOR _____________?/////////////////////////////////////////////
 
-app.controller('MainController',['$scope', '$http','$location', function($scope, $http, $location){//ADD FACTORY HERE ALSO
+app.controller('MainController',['$scope', '$http','$location','pitchService', function($scope, $http, $location, pitchService){//ADD FACTORY HERE ALSO
     $scope.showLogIn = true;
     $scope.showMainPage = false;
     /////////////////////////////////////////////////////////////TESTING NG-SHOW CASE///////////////////////////////////
@@ -104,20 +76,10 @@ app.controller('MainController',['$scope', '$http','$location', function($scope,
                 }
             });
     };
-
-
-    //$http.get('getUser').then(function(response){
-    //    console.log(response);
-    //    $scope.user = response
-    //});
-
-    //$scope.loggedIn = NathanFactory.loggedIn;
-
-    //AFTER WE DO THE ABOVE, in the html we can use ng-show="loggedIn" on those side columns
 }]);
 /////////////////////////////////////////////////////CONTROLLER FOR SCATTER PLOT////////////////////////////////////////
 
-app.controller('GameTime', ['$scope', '$http', function($scope, $http){
+app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
 
     ///////////////////////////////////////GLOBAL VARIABLES///////////////////////////////////////////
     var batter = "";
@@ -135,11 +97,6 @@ app.controller('GameTime', ['$scope', '$http', function($scope, $http){
     var ballIcon = $scope.pitchResult;
     var ballColor = $scope.changeColor;
 
-    $scope.red = function(color){
-        console.log(color);
-        return color;
-
-    };
 
     $scope.changeColor = function(color){
         ballColor = color;
@@ -156,41 +113,27 @@ app.controller('GameTime', ['$scope', '$http', function($scope, $http){
         var plotX = baseball.x;
         var plotY = baseball.y;
         createBaseball(canvas, plotX, plotY);
-        console.log('pitch', plotX, plotY, ballIcon, ballColor);
     };
-
-
 
     var canvas = document.getElementById('myCanvas');
     var createBaseball = function (canvas, plotX, plotY) {
-
-
         var context = canvas.getContext('2d');
         if (canvas.getContext) {
-            //var ctx = canvas.getContext("2d");
             var w = 16;
-            //var x = event.pageX;
-            //var y = Math.floor(event.pageY - $(this).offset());
+            context.clearRect(0, 0, canvas.width, canvas.height);
             context.beginPath();
             context.fillStyle = "blue";
             context.arc(baseball.x, baseball.y, w/2, 0, 2*Math.PI);
             context.fill();
 
+
+
             context = canvas.getContext("2d");
+
             context.font = '8pt Calibri';
             context.fillStyle = 'white';
             context.textAlign = 'center';
             context.fillText(pitchResult, baseball.x, baseball.y + 4);//"0", should be a variable that will change the Pitch Results
-
-
-            //context.clearRect(0, 0, canvas.width, canvas.height);
-            //context.font = 'B';
-            //context.fillStyle = 'black';
-            //context.fillText(plotX, plotY, 10, 25);
-            //context.beginPath();
-            //context.arc(baseball.x,baseball.y,10,0,2*Math.PI);
-            //context.strokeStyle="red";
-            //context.stroke();
         }
     };
     var getBaseballPos = function (canvas, evt) {
@@ -198,25 +141,49 @@ app.controller('GameTime', ['$scope', '$http', function($scope, $http){
         baseball.x = evt.clientX - rect.left;
         baseball.y = evt.clientY - rect.top;
     };
-    //var ballColor = function()
-
-
-
-
 }]);
 
 /////////////////////////////////////////////////////CONTROLLER FOR CREATING PLAYER/////////////////////////////////////
 
-app.controller('CreatePlayer', ['$scope', '$http', function($scope, $http){
+app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
     $scope.player = "";
     $scope.submitPlayer = function(){
         console.log("LOL");
     }
 }]);
 
-app.controller('statsController', ['$scope', '$http', function($scope, $http){
+app.controller('statsController', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
 
 
+}]);
 
-    //$http.post('playerEntry', )
+
+app.factory('pitchService', ['$http', function($http) {
+
+    var batter = "";
+
+    var atBat = {
+        pitcher: "",//lefty or righty?
+        hit: "",//was it a hit? what kind?
+        out: "" //was it an out? what kind?
+    };
+    var pitches = {
+        pitch_type: [],//What type of pitch was it?
+        pitch_result: []//Was it a ball, strike, or foul?
+    };
+
+    var getPitchInfo = function() {
+        $http.get('/index').then(function(response){
+            data.pitchInfo = response.data;
+        });
+    };
+
+
+    return {
+        batter: batter,
+        atBat: atBat,
+        pitches: pitches,
+        getPitchInfo: getPitchInfo
+    };
+
 }]);
