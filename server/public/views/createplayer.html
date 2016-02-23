@@ -1,87 +1,45 @@
-<div class="backgroundimg">
+<div ng-controller="CreatePlayer">
     <br>
     <br>
     <br>
     <br>
 <form class="createP">
-    <h2 class="playername">Player's Name</h2><input class="firstname" name="name" placeholder=
-        "First Name" type="text"> <input class="lastname" name="name"
-                                         placeholder="Last Name" type="text">
-    <h2>Player Position:</h2><select>
-    <option class="position">
-        Position
-    </option>
-    <option class="C">
-        C
-    </option>
-    <option class="1B">
-        1B
-    </option>
-    <option class="2B">
-        2B
-    </option>
-    <option class="3B">
-        3B
-    </option>
-    <option class="SS">
-        SS
-    </option>
-    <option class="LF">
-        LF
-    </option>
-    <option class="CF">
-        CF
-    </option>
-    <option class="RF">
-        RF
-    </option>
-    <option class="P">
-        P
-    </option>
-    <option class="DH">
-        DH
-    </option>
-</select>
-    <h2>Second Position:</h2><select>
-    <option class="position">
-        Position
-    </option>
-    <option class="C">
-        C
-    </option>
-    <option class="1B">
-        1B
-    </option>
-    <option class="2B">
-        2B
-    </option>
-    <option class="3B">
-        3B
-    </option>
-    <option class="SS">
-        SS
-    </option>
-    <option class="LF">
-        LF
-    </option>
-    <option class="CF">
-        CF
-    </option>
-    <option class="RF">
-        RF
-    </option>
-    <option class="P">
-        P
-    </option>
-    <option class="DH">
-        DH
-    </option>
-</select>
-    <h2>Bats:</h2><input class="batsleft" name="batsfrom" type="button"
-                         value="Left"> <input class="batsright" name="batsfrom" type="button"
-                                              value="Right">
-    <h2>Throws:</h2><input class="throwsleft" name="throws" type="button"
-                           value="Left"> <input class="throwsright" name="throws" type="button"
-                                                value="Right"> <button>Submit</button>
+    <h2 class="playername">Player's Name</h2><input ng-model="firstname" name="name" placeholder=
+        "First Name" type="text"> <input ng-model="lastname" name="name" placeholder="Last Name" type="text">
+
+    <h2>Player Position:</h2>
+
+    <select ng-model="primaryPosition">
+    <option value="C">C</option>
+        <option value="1B">1B</option>
+        <option value="2B">2B</option>
+        <option value="3B">3B</option>
+        <option value="SS">SS</option>
+        <option value="LF">LF</option>
+        <option value="CF">CF</option>
+        <option value="RF">RF</option>
+        <option value="P">P</option>
+        <option value="DH">DH</option>
+    </select>
+
+    <h2>Second Position:</h2>
+
+    <select ng-model="secondaryPosition">
+    <option value="C">C</option>
+        <option value="1B">1B</option>
+        <option value="2B">2B</option>
+        <option value="3B">3B</option>
+        <option value="SS">SS</option>
+        <option value="LF">LF</option>
+        <option value="CF">CF</option>
+        <option value="RF">RF</option>
+        <option value="P">P</option>
+        <option value="DH">DH</option>
+    </select>
+    <h2>Bats:</h2>
+    <input name="bats" type="button" value="Left" ng-click="hitsfrom('lefty')">
+    <input name="bats" type="button" value="Right" ng-click="hitsfrom('righty')">
+
+    <h2>Throws:</h2><input name="throws" type="button" value="Left" ng-click="throwsFrom('lefty')" > <input name="throws" type="button" value="Right" ng-click="throwsFrom('righty')"> <button ng-click="submitPlayer()">Submit</button>
 </form>
 </div>

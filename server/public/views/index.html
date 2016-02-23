@@ -6,6 +6,7 @@
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/styles/mainpage.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="assets/images/BaseballGadget.jpg" type="image/gif" sizes="16x16">
     <script src="vendors/angular/angular.min.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
     <script src="assets/scripts/client.min.js"></script>
@@ -84,8 +85,8 @@
                 <div class="col-md-3 left">
                     <div class="pitcherstyle"><h2 class="pitcher">Pitcher</h2>
                         <form ng-model="pitcher">
-                            <input type="button" value="Lefty" name="throws" class="leftybtn">
-                            <input type="button" value="Righty" name="throws" class="rightybtn">
+                            <input type="button" value="Lefty" name="throws" class="leftybtn" ng-click="pitcherHand('lefty')">
+                            <input type="button" value="Righty" name="throws" class="rightybtn" ng-click="pitcherHand('righty')">
                         </form>
                     </div>
                     <!--[][][][][][][][][][][][][]]LEFT SIDE PITCHER TYPES[][][][][][][][][][][][][][][][][][][][]][-->
@@ -130,12 +131,7 @@
                 <!--[][][][][][][][][][][][][]]RIGHT SIDE 'BATTER' STARTS HERE[][][][][][][][][][][][][][][][][-->
                 <div class="col-md-3 right">
                     <div class="batterstyle"><h2 class="batter">Batter</h2>
-                        <select ng-model="batter">
-                            <option value="____Input batter here____"></option><!--This needs a way to input batters from the database-->
-                            <option value="batter1">Batter 1</option>
-                            <option value="batter2">Batter 2</option>
-                            <option value="batter3">Batter 3</option>
-                            <option value="batter4">Batter 4</option>
+                        <select ng-options="name in batterNames" ng-model="names">
                         </select>
                     </div>
                     <!--[][][][][][][][][][][][][]]RIGHT SIDE HIT[][][][][][][][][][][][][][][][][][][][]][-->

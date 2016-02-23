@@ -33,13 +33,6 @@ form{
     text-align: center;
 }
 
-h1{
-    position: relative;
-    right:170px;
-    display:inline-block;
-    text-align: center;
-}
-
 .logo{
     display:inline-block;
     float:left;
@@ -298,12 +291,23 @@ ul[class=pitchbtns]{
 input{
     color: black;
 }
+
 h1{
     font-family: 'Audiowide', cursive;
     text-shadow: 3px 3px black;
     color:forestgreen;
     font-weight:bold;
+    position: relative;
+    display:inline-block;
+    right: 170px;
+
 }
+
+h3{
+    text-align: center;
+    margin-top:8%;
+}
+
 footer {
     background-color:black;
     color:white;

@@ -71,16 +71,31 @@ app.controller('MainController',['$scope', '$http','$location','pitchService', f
                 }
             });
     };
-    $scope.changeColor = function(color){
+    $scope.changeColor = function(color){//Color of the baseball in relation to the pitch type selected
         ballColor = color;
         console.log(ballColor);
         return ballColor;
     };
 
-    $scope.pitchResult = function(pitch){
+    $scope.pitchResult = function(pitch){//the content inside the Pitch
         ballIcon = pitch;
         return ballIcon;
     };
+    $scope.pitcherHand = function(throws){// concatenate function response into query for facing lefty or righty table
+        throwsWith = throws;
+        return throwsWith;
+    };
+    $scope.names = function(){
+        $http.get("/getPlayer")
+            .then(function (response) {
+                $scope.batterNames = response.data;
+            });//response.data.records
+    };
+
+
+
+
+
 }]);
 
 app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
@@ -128,11 +143,45 @@ app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, 
 
 /////////////////////////////////////////////////////CONTROLLER FOR CREATING PLAYER/////////////////////////////////////
 
-app.controller('CreatePlayer', ['$scope', '$http', function($scope, $http){
-    $scope.player = "";
+app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
+    //$scope.player = "";
+    $scope.hitsfrom = function(bats){
+        console.log('You have reached the hits from', bats);
+        sideOfPlate = bats;// for some reason can't understand this
+        console.log(sideOfPlate);
+        //trying to see if this function will fire on the lefty or righty buttons
+        return sideOfPlate;
+    };
+    $scope.throwsFrom = function(hand){
+        console.log('You have reached the thowing', hand);
+        pitchesWith = hand;
+        //trying to see if this function will fire on the lefty or righty buttons
+        return pitchesWith;
+    };
+
+
+
+    $scope.firstname = "";
+    $scope.lastname = "";
+    $scope.primaryPosition = "";
+    $scope.secondaryPosition = "";
+    //$scope.bats = sideOfPlate;//can't
+    //$scope.throws = pitchesWith;
+
+
     $scope.submitPlayer = function(){
-        console.log("LOL");
-    }
+        $http.post('/newPlayer', {firstname: $scope.firstname, lastname: $scope.lastname, primaryPosition: $scope.primaryPosition, secondaryPosition: $scope.secondaryPosition, hitsfrom: sideOfPlate, throws: pitchesWith})
+            .then(function(response){
+                if(response.status === 200){
+                    //$location.path('/index');
+                    console.log('Registered successfully');
+                } else {
+                    console.log("ERROR");
+                }
+            });
+    };
+
+
 }]);
 
 app.controller('statsController', ['$scope', '$http', function($scope, $http){

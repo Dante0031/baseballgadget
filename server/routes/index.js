@@ -5,7 +5,6 @@ var pg = require('pg');
 
 var router = express.Router();
 
-//var connectionString = process.env.DATABASE_URL || require(‘__’);// need help here figuring out what to do.
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/BaseballGadget';
 
 ////////////////////////////START OF PASSPORT///////////////////////////////////////////////////////////////////////////
@@ -23,9 +22,6 @@ router.get('/login', function(request, response){//changing '/fail' to '/login' 
     response.sendFile(path.join(__dirname, '../public/views/fail.html'));
 });
 
-//router.get('/success', function(request, response){
-//    response.sendFile(path.join(__dirname, '../public/views/success.html'));
-//});
 //////////////////////////////////////////THIS IS LOGGING IN USER///////////////////////////////////////////////////////
 router.post('/logIn', passport.authenticate('local', {
     successRedirect: '/index',
@@ -51,6 +47,40 @@ router.post('/newEntry', function(request, response){
     })
 });
 
+/////////////////////////////////THIS IS CONNECTING TO POSTGRES AND ADDING NEW USER/////////////////////////////////////
+
+router.post('/newPlayer', function(request, response){
+    console.log(request.body);
+    var newCreatedPlayer = request.body;
+
+    pg.connect(connectionString, function(err, client){
+
+        client
+            .query('INSERT INTO addplayer (first_name, last_name, secondary_position, primary_position, hitsfrom, throws, addplayerID) VALUES ($1, $2, $3, $4, $5, $6)', [newCreatedPlayer.firstname, newCreatedPlayer.lastname, newCreatedPlayer.secondaryPosition, newCreatedPlayer.primaryPosition, newCreatedPlayer.hitsfrom, newCreatedPlayer.throws])
+            .on('end', function(){
+                client.end();
+                return response.sendStatus(200);
+            });
+    })
+});
+
+/////////////////////////////////THIS IS SAVING A CREATED PLAYER TO A LOGGED IN USER/////////////////////////////////////
+
+
+router.get('/getPlayer', function(request, response){
+    console.log(request.body);
+    var getPlayer = request.body;
+
+    pg.connect(connectionString, function(err, client){
+
+        client
+            .query('SELECT first_name,last_name FROM addplayer', [getPlayer.firstname, getPlayer.lastname])
+            .on('end', function(){
+                client.end();
+                return response.sendStatus(200);
+            });
+    })
+});
 
 
 
