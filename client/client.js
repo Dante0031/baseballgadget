@@ -23,14 +23,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         controller: 'statsController'
     });
 
-
-
     $locationProvider.html5Mode(true);
 }]);
 
-////////////////////////////////THIS IS THE CONTROLLER FOR THE USER'S LOGIN/////////////////////////////////////////////
-
-
+//Controller for User's login
 app.controller('signupCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
 
     $scope.username = "";
@@ -51,7 +47,7 @@ app.controller('signupCtrl', ['$scope','$http', '$location', function($scope, $h
         });
     };
 }]);
-
+//controller for login/
 app.controller('MainController',['$scope', '$http','$location','pitchService', function($scope, $http, $location, pitchService){
     $scope.showLogIn = true;
     $scope.showMainPage = false;
@@ -71,17 +67,19 @@ app.controller('MainController',['$scope', '$http','$location','pitchService', f
                 }
             });
     };
-    $scope.changeColor = function(color){//Color of the baseball in relation to the pitch type selected
+    //Color of the baseball in relation to the pitch type selected
+    $scope.changeColor = function(color){
         ballColor = color;
         console.log(ballColor);
         return ballColor;
     };
-
-    $scope.pitchResult = function(pitch){//the content inside the Pitch
+    //The content inside the Pitch
+    $scope.pitchResult = function(pitch){
         ballIcon = pitch;
         return ballIcon;
     };
-    $scope.pitcherHand = function(throws){// concatenate function response into query for facing lefty or righty table
+    //Concatenate function response into query for facing lefty or righty table
+    $scope.pitcherHand = function(throws){
         throwsWith = throws;
         return throwsWith;
     };
@@ -91,20 +89,11 @@ app.controller('MainController',['$scope', '$http','$location','pitchService', f
                 $scope.batterNames = response.data;
             });//response.data.records
     };
-
-
-
-
-
 }]);
 
 app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
 
-
-
     var baseball = {};
-
-
 
     $scope.fireClickEvent = function(evt){
         getBaseballPos(canvas, evt);
@@ -141,8 +130,7 @@ app.controller('GameTime', ['$scope', '$http', 'pitchService', function($scope, 
     };
 }]);
 
-/////////////////////////////////////////////////////CONTROLLER FOR CREATING PLAYER/////////////////////////////////////
-
+//Controller for creating a player
 app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($scope, $http, pitchService){
     //$scope.player = "";
     $scope.hitsfrom = function(bats){
@@ -153,14 +141,13 @@ app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($sco
         return sideOfPlate;
     };
     $scope.throwsFrom = function(hand){
-        console.log('You have reached the thowing', hand);
+        console.log('You have reached the throwing', hand);
         pitchesWith = hand;
         //trying to see if this function will fire on the lefty or righty buttons
         return pitchesWith;
     };
 
-
-
+    $scope.teamname = "";
     $scope.firstname = "";
     $scope.lastname = "";
     $scope.primaryPosition = "";
@@ -168,9 +155,8 @@ app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($sco
     //$scope.bats = sideOfPlate;//can't
     //$scope.throws = pitchesWith;
 
-
     $scope.submitPlayer = function(){
-        $http.post('/newPlayer', {firstname: $scope.firstname, lastname: $scope.lastname, primaryPosition: $scope.primaryPosition, secondaryPosition: $scope.secondaryPosition, hitsfrom: sideOfPlate, throws: pitchesWith})
+        $http.post('/newPlayer', {teamname: $scope.teamname, firstname: $scope.firstname, lastname: $scope.lastname, primaryPosition: $scope.primaryPosition, secondaryPosition: $scope.secondaryPosition, hitsfrom: sideOfPlate, throws: pitchesWith})
             .then(function(response){
                 if(response.status === 200){
                     //$location.path('/index');
@@ -180,15 +166,12 @@ app.controller('CreatePlayer', ['$scope', '$http', 'pitchService', function($sco
                 }
             });
     };
-
-
 }]);
 
 app.controller('statsController', ['$scope', '$http', function($scope, $http){
-
+//this will be filled in with manipulation of stats
 
 }]);
-
 
 app.factory('pitchService', ['$http', function($http) {
 

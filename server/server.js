@@ -1,6 +1,3 @@
-/**
- * Created by NathanBriscoe on 2/4/16.
- */
 var express = require('express');
 var index = require('./routes/index');
 var session = require('express-session');
@@ -13,38 +10,37 @@ var app = express();
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/BaseballGadget';
 
-app.use(bodyParser.json());//Returns middleware that only parses json
-app.use(bodyParser.urlencoded({extended: true}));//Returns middleware that only parses urlencoded bodies.
+//Returns middleware that only parses json
+//Returns middleware that only parses urlencoded bodies.
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use(express.static("server/public"));
 
 
-////////////////////////////HOW LONG THE APP WILL STAY OPEN BEFORE IT LOGS USER OFF/////////////////////////////////////
+//How long the app will stay open before it logs user off
 app.use(session({
     secret: 'secret',
-    key: 'user',/////////WHAT IS THIS FOR?///////////////
+    key: 'user',
     resave: true,
     saveUninitialized: false,
     cookie: { maxAge: 600000, secure: false }
 }));
 
-////////////////////////////SESSION HAS TO GO FIRST. CONFIGURE BEFORE INITIALIZE////////////////////////////////////////
-
+//Session has to go first. Configures before initialize's
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
 
-/////////////////////////////////////////////////SERIALIZEUSER//////////////////////////////////////////////////////////
-
+//Serialize User
 passport.serializeUser(function(user, done) {
     console.log('called serializeUser');
     done(null, user.id);
 });
 
-/////////////////////////////////////////////////DESERIALIZEUSER////////////////////////////////////////////////////////
-
+//Deserialize User
 passport.deserializeUser(function(id, done) {
     console.log('called deserializeUser');
     pg.connect(connectionString, function (err, client) {
@@ -53,18 +49,22 @@ passport.deserializeUser(function(id, done) {
         console.log('called deserializeUser - pg');
         var query = client.query("SELECT * FROM users WHERE id = $1", [id]);
 
+        //below is consoling out 'row' which is an object of the users login info
+        //I'm wondering if the "SELECT * FROM users WHERE id = $1" , [id] ...is what i'm looking for
+
         query.on('row', function (row) {
             console.log('User row', row);
             user = row;
             done(null, user);
         });
 
+
+
         // After all data is returned, close connection and return results
         query.on('end', function () {
             client.end();
             // return res.json(results);
         });
-
         // Handle Errors
         if (err) {
             console.log(err);
@@ -72,8 +72,7 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-/////////////////////THE FOLLOWING USES THE LOCALSTRATEGY FOR USERNAME/PASSWORD AUTHENTICATION//////////////////////////
-
+//Uses local strategy for username/password authentication
 passport.use('local', new localStrategy({ passReqToCallback : true, usernameField: 'username' },
     function(request, username, password, done) {
        console.log('called local');
@@ -98,23 +97,19 @@ passport.use('local', new localStrategy({ passReqToCallback : true, usernameFiel
                 }
 
             });
-
             // After all data is returned, close connection and return results
             query.on('end', function () {
                 // client.end();
                 // return res.json(results);
             });
-
             // Handle Errors
             if (err) {
                 console.log(err);
             }
         });
-
     }));
 
-
-///////////////////////////////////////////////////////END OF PASSPORT /////////////////////////////////////////////////
+//End of passport
 app.get('/', function(request, response){
    response.sendFile(__dirname + "/public/views/index.html");
 });

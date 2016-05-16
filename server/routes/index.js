@@ -7,7 +7,7 @@ var router = express.Router();
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/BaseballGadget';
 
-////////////////////////////START OF PASSPORT///////////////////////////////////////////////////////////////////////////
+//Start of passport
 router.get('/', function(request, response){
     var joinedPath = path.join(__dirname, '../public/views/index.html');
     console.log("joined path", joinedPath);
@@ -22,18 +22,16 @@ router.get('/login', function(request, response){//changing '/fail' to '/login' 
     response.sendFile(path.join(__dirname, '../public/views/fail.html'));
 });
 
-//////////////////////////////////////////THIS IS LOGGING IN USER///////////////////////////////////////////////////////
+//This is logging the user in
 router.post('/logIn', passport.authenticate('local', {
     successRedirect: '/index',
     failureRedirect: '/login'
 }));
 
-////////////////////////////END OF PASSPORT/////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////THIS IS CONNECTING TO POSTGRES AND ADDING NEW USER/////////////////////////////////////
-
+//This is connecting to postgres and adding new user
 router.post('/newEntry', function(request, response){
-    console.log(request.body);
+    console.log("testing", request.body);
     var newUser = request.body;
 
     pg.connect(connectionString, function(err, client){
@@ -47,8 +45,7 @@ router.post('/newEntry', function(request, response){
     })
 });
 
-/////////////////////////////////THIS IS CONNECTING TO POSTGRES AND ADDING NEW USER/////////////////////////////////////
-
+//This is connecting to postgres and adding new player
 router.post('/newPlayer', function(request, response){
     console.log(request.body);
     var newCreatedPlayer = request.body;
@@ -56,7 +53,7 @@ router.post('/newPlayer', function(request, response){
     pg.connect(connectionString, function(err, client){
 
         client
-            .query('INSERT INTO addplayer (first_name, last_name, secondary_position, primary_position, hitsfrom, throws, addplayerID) VALUES ($1, $2, $3, $4, $5, $6)', [newCreatedPlayer.firstname, newCreatedPlayer.lastname, newCreatedPlayer.secondaryPosition, newCreatedPlayer.primaryPosition, newCreatedPlayer.hitsfrom, newCreatedPlayer.throws])
+            .query('INSERT INTO players (users_id, first_name, last_name, secondary_position, primary_position, hitsfrom, throws, team_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [request.user.id, newCreatedPlayer.firstname, newCreatedPlayer.lastname, newCreatedPlayer.secondaryPosition, newCreatedPlayer.primaryPosition, newCreatedPlayer.hitsfrom, newCreatedPlayer.throws, newCreatedPlayer.teamname])
             .on('end', function(){
                 client.end();
                 return response.sendStatus(200);
@@ -64,9 +61,7 @@ router.post('/newPlayer', function(request, response){
     })
 });
 
-/////////////////////////////////THIS IS SAVING A CREATED PLAYER TO A LOGGED IN USER/////////////////////////////////////
-
-
+///This is saving a created player to a logged in user
 router.get('/getPlayer', function(request, response){
     console.log(request.body);
     var getPlayer = request.body;
